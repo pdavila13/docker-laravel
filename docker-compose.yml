@@ -12,13 +12,13 @@ services:
             dockerfile: nginx.dockerfile
         depends_on:
             - php
-            - mysql
+            - mariadb
         container_name: nginx
         ports:
             - 80:80
             - 443:443
         volumes:
-            - ./src:/var/www/html
+            - ./adminlte-system:/var/www/html
         networks:
             - laravel
 
@@ -31,7 +31,7 @@ services:
 #            - 80:80
 #            - 443:443
 #        volumes:
-#            - ./src:/var/www/html
+#            - ./adminlte-system:/var/www/html
 #        networks:
 #            - virtual-fair
 
@@ -41,14 +41,14 @@ services:
             dockerfile: php.dockerfile
         container_name: php
         volumes:
-            - ./src:/var/www/html
+            - ./adminlte-system:/var/www/html
         networks:
             - laravel
 
-    mysql:
-        image: mysql:8.0.27
+    mariadb:
+        image: mariadb
         platform: linux/amd64
-        container_name: mysql
+        container_name: mariadb
         ports:
             - 3306:3306
         volumes:
@@ -65,7 +65,7 @@ services:
         image: composer:latest
         container_name: composer
         volumes:
-            - ./src:/var/www/html
+            - ./adminlte-system:/var/www/html
         working_dir: /var/www/html
         networks:
             - laravel
@@ -76,7 +76,7 @@ services:
             dockerfile: php.dockerfile
         container_name: artisan
         volumes:
-            - ./src:/var/www/html
+            - ./adminlte-system:/var/www/html
         working_dir: /var/www/html
         entrypoint: ['php', 'artisan']
         networks:
@@ -86,7 +86,7 @@ services:
         image: node:current-alpine
         container_name: npm
         volumes:
-            - ./src:/var/www/html
+            - ./adminlte-system:/var/www/html
         working_dir: /var/www/html
         entrypoint: ['npm']
         networks:

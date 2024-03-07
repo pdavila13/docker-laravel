@@ -3,3 +3,5 @@
 docker-compose.override.yml
 /.idea
 /.vscode
+/mysql
+/adminlte-system
